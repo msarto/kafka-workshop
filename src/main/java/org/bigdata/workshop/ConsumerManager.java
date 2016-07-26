@@ -23,9 +23,14 @@ public class ConsumerManager {
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 
-        CustomConsumer customConsumer = new CustomConsumer(props);
+        for (int i = 0; i < 10; i++) {
+            //todo: allow time to generate custom stuff
+            Thread.sleep(10);
+            props.put("group.id", System.nanoTime() + "");
+            executorService.execute(new CustomConsumer(props));
+        }
 
-        executorService.execute(new CustomConsumer(props));
+
     }
 
 }
