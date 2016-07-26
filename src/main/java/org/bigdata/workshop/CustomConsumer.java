@@ -1,14 +1,21 @@
 package org.bigdata.workshop;
 
 import com.google.common.base.Stopwatch;
+import com.google.common.io.ByteSource;
+import com.google.common.io.Resources;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.utils.Time;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.Timer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -36,5 +43,16 @@ public class CustomConsumer implements Runnable {
                 System.out.printf("thread = %d offset = %d, key = %s, value = %s \n", threadId, record.offset(), record.key(), record.value());
             }
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        URL url = Resources.getResource("twitter-kafka.properties");
+        final ByteSource byteSource = Resources.asByteSource(url);
+        Properties properties = new Properties();
+        InputStream inputStream = byteSource.openBufferedStream();
+        properties.load(inputStream);
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new CustomConsumer(properties));
     }
 }
