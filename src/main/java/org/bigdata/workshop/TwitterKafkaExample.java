@@ -26,7 +26,7 @@ public class TwitterKafkaExample {
 
         TwitterStreamExample twitterStreamExample = new TwitterStreamExample();
         CustomKafkaProducer customKafkaProducer = new CustomKafkaProducer(properties);
-        BlockingQueue<String> tweetsQueue = twitterStreamExample.getStreamQueue(properties, Lists.newArrayList("#ClujKafka"));
+        BlockingQueue<String> tweetsQueue = twitterStreamExample.getStreamQueue(properties, Lists.newArrayList("#Brexit"));
 
         TwiterKafkaBridge twiterKafkaBridge = new TwiterKafkaBridge(customKafkaProducer, tweetsQueue);
         twiterKafkaBridge.producerForBrexit();
