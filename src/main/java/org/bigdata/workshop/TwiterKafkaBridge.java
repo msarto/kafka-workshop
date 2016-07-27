@@ -19,6 +19,7 @@ public class TwiterKafkaBridge {
 
     /**
      * Produce for the topic brexit
+     *
      * @throws InterruptedException
      */
     public void producerForBrexit() throws InterruptedException {
@@ -27,6 +28,15 @@ public class TwiterKafkaBridge {
             customKafkaProducer.send("brexit", "", msg);
             System.out.println(msg);
         }
+    }
+
+    /**
+     * Produce for the topic workshop
+     *
+     * @throws InterruptedException
+     */
+    public void producerForWorkshop() throws InterruptedException {
+        //Add code here
     }
 
 
