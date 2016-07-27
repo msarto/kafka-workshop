@@ -28,7 +28,6 @@ public class ConsumerManager {
         for (int i = 0; i < 10; i++) {
             //todo: allow time to generate custom stuff
             Thread.sleep(10);
-            properties.put("group.id", System.nanoTime() + "");
             executorService.execute(new CustomConsumer(properties));
         }
 
