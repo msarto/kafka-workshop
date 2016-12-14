@@ -27,6 +27,7 @@ public class ConsumerManager {
 
         for (int i = 0; i < 10; i++) {
             //todo: allow time to generate custom stuff
+            //todo: add multiple consumers that consume the same messages in parallel
             Thread.sleep(10);
             executorService.execute(new CustomConsumer(properties));
         }
