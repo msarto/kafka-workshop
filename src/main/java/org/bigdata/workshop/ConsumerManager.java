@@ -21,14 +21,16 @@ public class ConsumerManager {
 
         URL url = Resources.getResource("twitter-kafka.properties");
         final ByteSource byteSource = Resources.asByteSource(url);
-        Properties properties = new Properties();
-        InputStream inputStream = byteSource.openBufferedStream();
-        properties.load(inputStream);
+
 
         for (int i = 0; i < 10; i++) {
             //todo: allow time to generate custom stuff
             //todo: add multiple consumers that consume the same messages in parallel
-            Thread.sleep(10);
+            // Thread.sleep(10);
+            Properties properties = new Properties();
+            InputStream inputStream = byteSource.openBufferedStream();
+            properties.load(inputStream);
+            properties.put("group.id",String.valueOf(i));
             executorService.execute(new CustomConsumer(properties));
         }
 
